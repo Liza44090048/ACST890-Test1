@@ -1,0 +1,27 @@
+#to complete the task we need to create a function "Fibonacci(n)" that will return the first n numbers of Fibonacci sequence
+#we state the name of the function and use "{" to start writing the function
+Fibonacci=function(n) {
+	#as far as if n=1 function will not sum anything, we need to define that case specifically using "if" and write the command after "{"
+		if(n==1) {
+			#expression to set x equal to 1 under the condition above
+			x=1
+			#closing the expression with "}" and adding one more expression using "else"
+			} else {
+				#we are telling R that if n is not equal to one then x is a vector of 1 and 1 OR
+				x=c(1,1)
+				#we are adding a loop "while" which has a condition that length of vector x should be less then n
+				while (length(x)<n) {
+					#if condition if fulfilled then we write the expression, assigning the value to the position as a length of x vector
+					position=length(x)
+					#we create new object basically like that sum of two numbers according to the position of x
+					new=x[position]+x[position-1]
+					#we state that x as a vector of all values x adding new value to the vector every time
+					x=c(x,new)
+					#closing the expression with "}"
+					}
+					#closing the expression with "}"
+					}
+					#telling R to print vector x
+					return(x)
+					#closing the function with "}"
+					}
