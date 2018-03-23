@@ -1,0 +1,124 @@
+#check the working directory
+getwd()
+#if working directory is not what we want - change it (Mac-user)
+setwd("/Users/liza/Desktop/R practice")
+#the spreadsheet (PersonenSchaden.csv) should be in a working directory
+#check if the working spreadsheet is in a right directory
+list.files()
+
+#PartA
+#read the data into R and name it dataset
+dataset=read.csv("PersonenSchaden.csv", header=TRUE)
+#to view a dataset in a window write
+fix(dataset)
+
+
+#PartB
+#state total (from dataset) variable as QuestionB for convenience
+QuestionB=dataset$total
+#to calculate mean
+mean(QuestionB)
+#to calculate variance
+var(QuestionB)
+#to calculate standard deviation
+sd(QuestionB)
+#to find largest value
+max(QuestionB)
+#to find smallest value
+min(QuestionB)
+#to find median
+median(QuestionB)
+#to find the top quartile and the bottom quartile
+quantile(QuestionB,c(0.25,0.75))
+
+
+#PartC
+#we use the same data we used in question b, but we can change the name for convenience 
+QuestionC=QuestionB
+#plot a histogram
+hist(QuestionC,             #use data "total"
+main="Q3(c) Dollar values of the claims",     #state the name of the graph
+xlab ="Dollar values",           #name of x-axis
+border="red", col="pink",       #every bar has red border and pink filling
+breaks=80)                  #we state the breaks so the graph looks clearer
+
+
+#PartD
+#we use the difference between variable "finmonth" and "repmonth" to get a settlement delay and name it for convenience as
+questionD=dataset$finmonth-dataset$repmonth
+hist(questionD,       #use data setted as "questionD"
+main= "Q3(d)Settlement delay",     #state the name of graph
+border = "black", col= "blue",     #every bar has black border and blue filling
+xlab="Delay (periods)",         #name of x-axis
+breaks=80)          #we state the breaks so the graph looks clearer
+
+
+#PartE
+#we use variable "legrep" and name it for convenience 
+questionE=dataset$legrep
+hist(questionE,     #use data "legrep'
+freq=FALSE,         #normalize the histogram so the total area is 1(proportion)
+main = "Q3(e) Legal representation",   #state the name of graph
+border="black", col = "green",         #every bar has black border and green filling
+xlab="Legal representation",          #name of x-axis
+ylab="Proportion of cases which are(not) legally represented",    #name of y-axis
+breaks=10)     #we state the breaks so the graph looks clearer
+
+
+#PartF
+#we use variable "inj1" and name it for convenience 
+QuestionF=dataset$inj1
+hist(QuestionF,         #use data "inj1"
+freq=FALSE,            #normalize the histogram so the total area is 1(proportion)
+main="Q3(f) Injury code",    #state the name of graph
+border="black", col = "orange",         #every bar has black border and orange filling
+xlab="code",          #name of x-axis
+ylab="Proportion of total claims",    #name of y-axis
+breaks=9)     #we state the breaks so the graph looks clearer
+
+
+#PartH
+#we use the same data we used in question B, but we can change the name for convenience 
+QuestionH=QuestionB
+#plot a histogram of the log dollar values of the claims
+#use data "total" and transform it to the log scale
+hist(log(QuestionH),
+main= "Q3(h) LOG(Dollar values of the claims)",   #state the name of graph
+xlab="LOG(Dollar values)",       #name of x-axis
+border = "black", col= "pink",     #every bar has black border and pink filling
+breaks=80)          #we state the breaks so the graph looks clearer
+
+
+#PartI-1
+#we use the same data we used in question b and add "op_time", but we can change names for convenience according to the axis
+QuestionIX=dataset$op_time     #operational time on axis x
+QuestionIY=QuestionB           #claim size on axis Y
+#plot claim size against operational time
+plot(QuestionIX, QuestionIY,
+main="Q3(i-1)",      #name of the graph
+xlab = "Operational time",     #name of x-axis
+ylab= "Claim size",     #name of y-axis
+col="green")      #green colour
+
+
+#PartI-2
+#plot log claim size against operational time
+#use QuestionIY and transform it to the log scale
+plot(QuestionIX, log(QuestionIY),
+main="Q3(i-2)",      #name of the graph
+xlab = "Operational time",     #name of x-axis
+ylab= "LOG(Claim size)",     #name of y-axis
+col="green")      #green colour
+
+
+#PartK
+#plot log claim size against operational time
+#use QuestionIY and transform it to the log scale
+plot(QuestionIX, log(QuestionIY),
+main="Q3(k)",      #name of the graph
+xlab = "Operational time",     #name of x-axis
+ylab= "LOG(Claim size)",     #name of y-axis
+#we are setting the conditional colouring of plotted points telling R that if "legrep" value is less than 0.5 (read as 0=no legal representation) than colour of the point should be "red" and colour "green" otherwise
+col=ifelse(dataset$legrep<0.5, 'red', 'green' ))
+
+
